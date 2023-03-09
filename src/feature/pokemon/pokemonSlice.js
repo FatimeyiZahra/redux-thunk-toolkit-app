@@ -35,4 +35,6 @@ export const pokemonSlice = createSlice({
   },
 });
 
+export const allPokemonSelector = (state) => state.pokemonSlice
+
 export default pokemonSlice.reducer;
