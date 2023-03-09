@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllPokemon } from "./feature/pokemon/pokemonSlice";
+import { Avatar, List } from "antd";
+const App = () => {
+  const dispatch = useDispatch();
 
-function App() {
+  useEffect(() => {
+    dispatch(fetchAllPokemon());
+  }, []);
+
+  const { allPokemon } = useSelector((state) => state.pokemonSlice);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <List
+        itemLayout="horizontal"
+        dataSource={allPokemon.results}
+        renderItem={(item, index) => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Avatar src={`https://joesch.moe/api/v1/random?key=${index}`} />
+              }
+              title={item.name}
+            />
+          </List.Item>
+        )}
+      />
+    </>
   );
-}
+};
 
 export default App;
