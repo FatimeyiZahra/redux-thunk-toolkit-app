@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { allPokemonSelector, fetchAllPokemon } from "./feature/pokemon/pokemonSlice";
 import { Avatar, List } from "antd";
+import { useAppDispatch, useAppSelector } from "./store/hook";
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchAllPokemon());
   }, []);
 
-  const  {allPokemon}  = useSelector(allPokemonSelector);
+  const  {allPokemon}  = useAppSelector(allPokemonSelector);
 
   return (
     <>

@@ -1,8 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RootState } from "../../store/store";
 
-const initialState = {
-  allPokemon: [],
+type Result = {
+  name: string;
+  url: string;
+};
+
+type Pokemon = {
+  count: number;
+  next: string;
+  previous: null;
+  results: Result[];
+};
+
+type stateType = {
+  allPokemon: Pokemon;
+  isLoading: boolean;
+  error: string | undefined;
+};
+
+const initialState: stateType = {
+  allPokemon: {} as Pokemon,
   isLoading: false,
   error: "",
 };
@@ -35,6 +54,6 @@ export const pokemonSlice = createSlice({
   },
 });
 
-export const allPokemonSelector = (state) => state.pokemonSlice
+export const allPokemonSelector = (state:RootState) => state.pokemonSlice;
 
 export default pokemonSlice.reducer;
